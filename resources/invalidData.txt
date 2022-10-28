@@ -1,0 +1,8 @@
+docnum7yr0wsh5! (does not contain only litters or digits)
+123456789012345 (does not start with docnum and with contract)
+contract90asdf556 (does not contain fifteen characters)
+ntract90asdf555 (does not start with docnum and with contract)
+contract-9asdf7 (does not contain only litters or digits)
+contract&&9asdf (does not contain only litters or digits)
+docnum7yr0wgsh5555 (does not contain fifteen characters)
+docnum7yr0123 (does not contain fifteen characters)
