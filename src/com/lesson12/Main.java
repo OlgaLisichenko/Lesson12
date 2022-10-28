@@ -3,9 +3,10 @@ package com.lesson12;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Scanner;
+
+import static java.nio.file.StandardOpenOption.*;
 
 /**
  * <p>1. Есть txt файл с номерами документов.
@@ -37,32 +38,33 @@ public class Main {
             Path validData = Path.of("resources", "validData.txt");
             Path invalidData = Path.of("resources", "invalidData.txt");
 
-            for (String s : numbersOfDoc) {
-                if (isValidNumber(s)) {
-                    Files.write(validData, List.of(s), StandardOpenOption.APPEND);
+            for (String docNumber : numbersOfDoc) {
+                if (isValidNumber(docNumber)) {
+                    Files.write(validData, List.of(docNumber), APPEND);
                 } else {
-                    if (s.length() != 15) {
-                        Files.write(invalidData, List.of(s + message1), StandardOpenOption.APPEND);
-                    } else if (!s.startsWith("docnum") && !s.startsWith("contract")) {
-                        Files.write(invalidData, List.of(s + message2), StandardOpenOption.APPEND);
+                    if (docNumber.length() != 15) {
+                        Files.write(invalidData, List.of(docNumber + message1), APPEND);
+                    } else if (!docNumber.startsWith("docnum") && !docNumber.startsWith("contract")) {
+                        Files.write(invalidData, List.of(docNumber + message2), APPEND);
                     } else {
-                        Files.write(invalidData, List.of(s + message3), StandardOpenOption.APPEND);
+                        Files.write(invalidData, List.of(docNumber + message3), APPEND);
                     }
                 }
             }
         }
     }
 
-    private static boolean isValidNumber(String s) {
-        boolean number = (s.length() == 15 && (s.startsWith("docnum") || s.startsWith("contract")));
-        char[] c = s.toCharArray();
-        boolean letterOrDigit = true;
-        for (char value : c) {
-            if (!Character.isLetterOrDigit(value)) {
-                letterOrDigit = false;
+    private static boolean isValidNumber(String docNum) {
+        boolean isDocNumberValid = (docNum.length() == 15 && (docNum.startsWith("docnum") || docNum.startsWith("contract")));
+        char[] numberFromChars = docNum.toCharArray();
+        boolean isContainOnlyLetterOrDigit = true;
+
+        for (char ch : numberFromChars) {
+            if (!Character.isLetterOrDigit(ch)) {
+                isContainOnlyLetterOrDigit = false;
                 break;
             }
         }
-        return letterOrDigit && number;
+        return isContainOnlyLetterOrDigit && isDocNumberValid;
     }
 }
